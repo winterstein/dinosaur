@@ -66,15 +66,20 @@ public class LockActivity extends Activity {
 	}
 
 	public static boolean startRecentApp(Context cntxt) {
-		String pckg = "com.winterwell.android.recentapp1";
-		Intent intent = cntxt.getPackageManager().getLaunchIntentForPackage(pckg);
-		boolean ok = AndroidUtils.pickIntentHandler(cntxt, intent, null);
-		if (ok) {
-			Log.i(LOGTAG, "Starting... "+intent.toString());
-			cntxt.startActivity(intent);
-			return true; 
-		} else {
-			Log.i(LOGTAG, "did not find... "+intent.toString());
+		try {
+			String pckg = "com.winterwell.android.recentapp1";
+			Intent intent = cntxt.getPackageManager().getLaunchIntentForPackage(pckg);
+			boolean ok = AndroidUtils.pickIntentHandler(cntxt, intent, null);
+			if (ok) {		
+				Log.i(LOGTAG, "Starting... "+intent.toString());
+				cntxt.startActivity(intent);
+				return true; 
+			} else {
+				Log.i(LOGTAG, "did not find... "+intent.toString());
+				return false;
+			}
+		} catch(Exception ex) {
+			Log.e(LOGTAG, ""+ex);
 			return false;
 		}
 	}

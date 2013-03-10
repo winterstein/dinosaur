@@ -36,14 +36,20 @@ public class MainActivity extends Activity {
 		if (pckg==null) pckg = "com.winterwell.android.dinosaur";
 	
 		// Next in the chain?
-		String next = name.replace(""+i, ""+(i+1));
-		Intent intent2 = getPackageManager().getLaunchIntentForPackage(next);
-		boolean fnd = AndroidUtils.pickIntentHandler(this, intent2, null);
-		if (fnd) {
-			intent2.putExtra("RecentApp", true);
-			Log.i(LOGTAG, "Up the chain... "+intent2.toString());
-			startActivity(intent2);
-			return;
+		try {
+			String next = name.replace(""+i, ""+(i+1));
+			Intent intent2 = getPackageManager().getLaunchIntentForPackage(next);
+			boolean fnd = AndroidUtils.pickIntentHandler(this, intent2, null);
+			if (fnd) {
+				intent2.putExtra("action", action);
+				intent2.putExtra("package", pckg);
+				intent2.putExtra("RecentApp", true);
+				Log.i(LOGTAG, "Up the chain... "+intent2.toString());
+				startActivity(intent2);
+				return;
+			}
+		} catch(Exception ex) {
+			Log.e(LOGTAG, ""+ex);
 		}
 		
 		Intent intent = getPackageManager().getLaunchIntentForPackage(pckg);

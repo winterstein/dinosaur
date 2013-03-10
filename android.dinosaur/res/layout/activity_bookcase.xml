@@ -28,6 +28,12 @@
             android:layout_height="wrap_content"
             android:src="@drawable/grapes" />
 
+        <ImageButton
+            android:id="@+id/chicken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chicken" />
+
     </LinearLayout>
 
     <!--
@@ -59,6 +65,9 @@
                 android:hint="1234 to exit"
                 android:inputType="numberPassword" />
         </LinearLayout>
+
+   
+
     </FrameLayout>
 
 </FrameLayout>

@@ -221,6 +221,7 @@ public class MainActivity extends Activity {
 		bookcaseInitFlag = true;
 		ImageButton play1 = (ImageButton) findViewById(R.id.broccoli);
 		ImageButton play2 = (ImageButton) findViewById(R.id.grapes);
+		ImageButton play3 = (ImageButton) findViewById(R.id.chicken);
 		play1.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View arg0) {
@@ -233,6 +234,12 @@ public class MainActivity extends Activity {
 				videoChosen(2);
 			}
 		});
+		play3.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				videoChosen(3);
+			}
+		});
 		
 		EditText exit = (EditText) findViewById(R.id.exitPassword);
 		exit.setOnEditorActionListener(new EditText.OnEditorActionListener() {			
@@ -241,6 +248,7 @@ public class MainActivity extends Activity {
 				String s = arg0.getEditableText().toString();
 				Log.i(LOGTAG, "editor action "+arg2+" "+s);
 				if ("1234".equals(s)) {
+					LockActivity.off(MainActivity.this);
 					Log.i(LOGTAG, "EXIT!");
 					exitFlag = true;
 					setResult(0);
@@ -266,6 +274,14 @@ public class MainActivity extends Activity {
 			video = 2;
 			String uriPath = "android.resource://" + getPackageName() + "/"
 					+ R.raw.grapes480_360;
+			Uri uri = Uri.parse(uriPath);
+			log("SET URI " + uri);
+			vv.setVideoURI(uri);
+		}
+		if (resultCode==3) {
+			video = 3;
+			String uriPath = "android.resource://" + getPackageName() + "/"
+					+ R.raw.chicken480_360;
 			Uri uri = Uri.parse(uriPath);
 			log("SET URI " + uri);
 			vv.setVideoURI(uri);
@@ -339,6 +355,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		LockActivity.on(this);
 		log("START "+ (!exitFlag));
 		Log.i(LOGTAG, "SIZE " + vv.getWidth() + " x " + vv.getHeight());		
 

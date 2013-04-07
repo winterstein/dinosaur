@@ -11,30 +11,49 @@
          TextureView, etc.
     -->
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="220dp" >
 
-        <ImageButton
-            android:id="@+id/broccoli"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/broccoli" />
+            android:layout_height="wrap_content" >
 
-        <ImageButton
-            android:id="@+id/grapes"
+            <ImageButton
+                android:id="@+id/grapes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/grapes" />
+
+            <ImageButton
+                android:id="@+id/broccoli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/broccoli" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/grapes" />
+            android:layout_height="wrap_content" >
 
-        <ImageButton
-            android:id="@+id/chicken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/chicken" />
+            <ImageButton
+                android:id="@+id/football"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/football" />
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/chicken"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/chicken" />
+
+        </TableRow>
+    </TableLayout>
 
     <!--
          This FrameLayout insets its children based on system windows using
@@ -65,8 +84,6 @@
                 android:hint="1234 to exit"
                 android:inputType="numberPassword" />
         </LinearLayout>
-
-   
 
     </FrameLayout>
 

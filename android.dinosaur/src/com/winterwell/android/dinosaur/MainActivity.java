@@ -222,6 +222,7 @@ public class MainActivity extends Activity {
 		ImageButton play1 = (ImageButton) findViewById(R.id.broccoli);
 		ImageButton play2 = (ImageButton) findViewById(R.id.grapes);
 		ImageButton play3 = (ImageButton) findViewById(R.id.chicken);
+		ImageButton play4 = (ImageButton) findViewById(R.id.football);		
 		play1.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View arg0) {
@@ -238,6 +239,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				videoChosen(3);
+			}
+		});
+		play4.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				videoChosen(4);
 			}
 		});
 		
@@ -282,6 +289,14 @@ public class MainActivity extends Activity {
 			video = 3;
 			String uriPath = "android.resource://" + getPackageName() + "/"
 					+ R.raw.chicken480_360;
+			Uri uri = Uri.parse(uriPath);
+			log("SET URI " + uri);
+			vv.setVideoURI(uri);
+		}
+		if (resultCode==4) {
+			video = 4;
+			String uriPath = "android.resource://" + getPackageName() + "/"
+					+ R.raw.dinofootball_480x360;
 			Uri uri = Uri.parse(uriPath);
 			log("SET URI " + uri);
 			vv.setVideoURI(uri);

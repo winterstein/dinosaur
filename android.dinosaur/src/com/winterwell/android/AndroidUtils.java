@@ -212,6 +212,8 @@ public class AndroidUtils {
 	    Point wh = new Point(display.getWidth(), display.getHeight());
 	    if (wh.x==0 || wh.y==0) {
 	    	Log.e("AndroidUtils", "Screen resolution "+wh+" for "+context);
+	    } else {
+	    	Log.d("AndroidUtils", "Screen resolution "+wh+" for "+context);
 	    }
 	    return wh;
 	}

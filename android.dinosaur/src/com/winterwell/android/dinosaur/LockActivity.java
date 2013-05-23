@@ -21,7 +21,9 @@ public class LockActivity extends Activity {
 		Log.i(LOGTAG, "LockActivity START");
 		
 		String pn = getPackageName();
+		Log.i(LOGTAG, "pn: "+pn);
 		Intent intent = getPackageManager().getLaunchIntentForPackage(pn);
+		Log.i(LOGTAG, "intent: "+intent);
 		intent.addCategory(intent.CATEGORY_LAUNCHER);
 		
 		Log.i(LOGTAG, "LockActivity launch "+intent);
@@ -37,9 +39,10 @@ public class LockActivity extends Activity {
 	public static void on(final MainActivity mainActivity) {
 		Log.i(LOGTAG, "Lock ON from "+locked);
 		locked = true;
-		
+		Log.i(LOGTAG, "ma "+mainActivity);
 		PackageManager pm = mainActivity.getPackageManager();
 		ComponentName cn = mainActivity.getComponentName();
+		Log.i(LOGTAG, "cn "+cn);
 		Log.i(LOGTAG, cn.getClassName());
 		
 		ComponentName name = new ComponentName(mainActivity.getPackageName(), LockActivity.class.getName());
@@ -66,6 +69,7 @@ public class LockActivity extends Activity {
 	}
 
 	public static boolean startRecentApp(Context cntxt) {
+		Log.d(LOGTAG, "startRecentApp");
 		try {
 			String pckg = "com.winterwell.android.recentapp1";
 			Intent intent = cntxt.getPackageManager().getLaunchIntentForPackage(pckg);

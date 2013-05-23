@@ -3,6 +3,7 @@ package com.winterwell.android.dinosaur;
 import java.io.File;
 
 import com.androidquery.AQuery;
+import com.winterwell.android.AndroidUtils;
 import com.winterwell.android.dinosaur.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -18,6 +19,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -28,12 +31,14 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -80,7 +85,7 @@ public class MainActivity extends Activity {
 
 	boolean isLock = true;
 
-	private int video;
+	private int video = 0;
 
 	private boolean bookcaseInitFlag;
 
@@ -95,7 +100,7 @@ public class MainActivity extends Activity {
 		}
 		// try to block home & silence
 		int kc = event.getKeyCode();
-		if (kc == event.KEYCODE_HOME || kc==event.KEYCODE_VOLUME_MUTE
+		if (kc == event.KEYCODE_HOME //|| kc==event.KEYCODE_VOLUME_MUTE
 			|| kc==event.KEYCODE_VOLUME_DOWN) {
 			return true;
 		}
@@ -128,7 +133,7 @@ public class MainActivity extends Activity {
 		super.onResume();
 		Log.i(LOGTAG, "RESUME");		
 		LockActivity.on(this);
-		if (video!=0) {
+		if (video > 0) {
 			videoChosen(video);
 		}
 /*		Log.i(LOGTAG, "set keyguard off");
@@ -159,6 +164,7 @@ public class MainActivity extends Activity {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			// what size is this window?			
 		} catch (Exception ex) {
 			Log.i(LOGTAG, ex + "");
 		}
@@ -175,7 +181,20 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		Log.i(LOGTAG, "Make VV");
-		vv = new VideoView(this);
+		final Context app = this;
+		vv = new VideoView(this); 
+//		{
+//			@Override
+//	        protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
+//	        {
+//				final Point wh = AndroidUtils.getScreenResolution(app);
+//				if (wh.x>0 && wh.y>0) {
+//					setMeasuredDimension(wh.x,wh.y);
+//				}
+//	        }
+//		};
+		AndroidUtils.debugColor(vv);
+//		vv.setBackgroundColor(Color.BLACK);
 		OnErrorListener el = new OnErrorListener() {
 			@Override
 			public boolean onError(MediaPlayer mp, int what, int extra) {
@@ -200,8 +219,8 @@ public class MainActivity extends Activity {
 		String uriPath = "android.resource://" + getPackageName() + "/"
 				+ R.raw.dino480_360;
 		Uri uri = Uri.parse(uriPath);
-		log("SET URI " + uri);
-		vv.setVideoURI(uri);
+//		log("SET URI " + uri);
+//		vv.setVideoURI(uri);
 
 		openBookcase();
 	}
@@ -268,7 +287,9 @@ public class MainActivity extends Activity {
 
 	protected void videoChosen(int resultCode) {
 		Log.i(LOGTAG, "videoChosen "+resultCode);
+		
 		setContentView(vv);		
+		
 		if (resultCode==1) {
 			video = 1;
 			String uriPath = "android.resource://" + getPackageName() + "/"
@@ -301,7 +322,9 @@ public class MainActivity extends Activity {
 			log("SET URI " + uri);
 			vv.setVideoURI(uri);
 		}
-		vv.bringToFront();
+		
+		vv.bringToFront();				
+		
 		vv.start();
 	}
 
